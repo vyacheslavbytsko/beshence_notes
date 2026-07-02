@@ -2,15 +2,13 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flutter/material.dart';
-import 'package:material_symbols_icons/symbols.dart';
 
-import '../boxes/notes_v1.dart';
-import '../main.dart';
+import '../models/note_v1.dart';
 import '../misc.dart';
 
 class NoteScreen extends StatefulWidget {
-  final NoteV1 note;
-  const NoteScreen({super.key, required this.note});
+  final String noteId;
+  const NoteScreen({super.key, required this.noteId});
 
   @override
   State<StatefulWidget> createState() => _NoteScreenState();
@@ -24,37 +22,35 @@ class _NoteScreenState extends State<NoteScreen> {
 
   DateTime titleLastModified = DateTime.timestamp();
   DateTime textLastModified = DateTime.timestamp();
+  late NoteV1 note;
 
-  void saveNote() {
-    String? title = titleController.text;
-    String? text = textController.text;
+  Future<void> saveNote() async {
+    String title = titleController.text;
+    String text = textController.text;
     bool updateTitle = false;
     bool updateText = false;
 
-    if(widget.note.title != title) {
-      if(!(widget.note.title == null && title == "")) {
-        updateTitle = true;
-        widget.note.title = title;
-      }
+    if(note.title != title) {
+      updateTitle = true;
     }
-    if(widget.note.text != text) {
-      if(!(widget.note.text == null && text == "")) {
-        updateText = true;
-        widget.note.text = text;
-      }
+    if(note.text != text) {
+      updateText = true;
     }
     if(updateTitle || updateText) {
       var timestamp = DateTime.timestamp();
-      widget.note.modifiedAt = timestamp;
 
-      /*UpdateNoteEvent event = UpdateNoteEvent(
-          noteId: widget.note.id,
-          noteTitle: updateTitle ? title : null,
-          noteText: updateText ? text : null,
-          noteUpdatedAt: timestamp,
-          applied: true);*/
+      note = NoteV1(
+        id: note.id,
+        createdAt: note.createdAt,
+        title: updateTitle ? title : note.title,
+        titleModifiedAt: updateTitle ? timestamp : note.titleModifiedAt,
+        text: updateText ? text : note.text,
+        textModifiedAt: updateText ? timestamp : note.textModifiedAt,
+        deleted: note.deleted,
+        deletionStateChangedAt: note.deletionStateChangedAt,
+      );
 
-      notesBox.updateNote(widget.note);
+      await NoteV1.updateNote(note);
       //eventsBox.addEvent(event);
       notesChangeNotifier.updateNotes();
     }
@@ -70,30 +66,39 @@ class _NoteScreenState extends State<NoteScreen> {
 
   @override
   void initState() {
-    titleController.text = widget.note.title ?? "";
-    textController.text = widget.note.text ?? "";
-
-    titleController.addListener(() async {
-      DateTime thisTitleLastModified = DateTime.timestamp();
-      titleLastModified = thisTitleLastModified;
-      await Future.delayed(Duration(seconds: 3), () {
-        if(titleLastModified == thisTitleLastModified) {
-          saveNote();
-        }
-      });
-    });
-
-    textController.addListener(() async {
-      DateTime thisTextLastModified = DateTime.timestamp();
-      textLastModified = thisTextLastModified;
-      await Future.delayed(Duration(seconds: 3), () {
-        if(textLastModified == thisTextLastModified) {
-          saveNote();
-        }
-      });
-    });
-
+    _initializeNote();
     super.initState();
+  }
+
+  Future<void> _initializeNote() async {
+    final fetchedNote = await NoteV1.getNote(widget.noteId);
+    if (fetchedNote != null) {
+      setState(() {
+        note = fetchedNote;
+        titleController.text = note.title;
+        textController.text = note.text;
+      });
+
+      titleController.addListener(() async {
+        DateTime thisTitleLastModified = DateTime.timestamp();
+        titleLastModified = thisTitleLastModified;
+        await Future.delayed(Duration(seconds: 3), () {
+          if(titleLastModified == thisTitleLastModified) {
+            saveNote();
+          }
+        });
+      });
+
+      textController.addListener(() async {
+        DateTime thisTextLastModified = DateTime.timestamp();
+        textLastModified = thisTextLastModified;
+        await Future.delayed(Duration(seconds: 3), () {
+          if(textLastModified == thisTextLastModified) {
+            saveNote();
+          }
+        });
+      });
+    }
   }
 
   @override
@@ -117,12 +122,22 @@ class _NoteScreenState extends State<NoteScreen> {
                 itemBuilder: (BuildContext context) {
                   return [
                     PopupMenuItem(
-                      onTap: () {
+                       onTap: () async {
                         /*DeleteNoteEvent event = DeleteNoteEvent(
-                            noteId: widget.note.id,
+                            noteId: note.id,
                             noteDeletedAt: DateTime.timestamp(),
                             applied: true);*/
-                        notesBox.updateNote(widget.note..deleted = true);
+                        var deletedNote = NoteV1(
+                          id: note.id,
+                          createdAt: note.createdAt,
+                          title: note.title,
+                          titleModifiedAt: note.titleModifiedAt,
+                          text: note.text,
+                          textModifiedAt: note.textModifiedAt,
+                          deleted: true,
+                          deletionStateChangedAt: DateTime.timestamp(),
+                        );
+                        await NoteV1.updateNote(deletedNote);
                         //eventsBox.addEvent(event);
                         notesChangeNotifier.updateNotes();
                         context.pop("delete");

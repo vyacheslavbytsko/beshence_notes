@@ -4,8 +4,6 @@ import 'package:notes/screens/home.dart';
 import 'package:notes/screens/note.dart';
 import 'package:notes/screens/welcome.dart';
 
-import 'main.dart';
-
 GoRouter router = GoRouter(
   routes: [
     GoRoute(
@@ -19,7 +17,7 @@ GoRouter router = GoRouter(
         GoRoute(
           path: 'note/:noteId',
           builder: (context, state) => NoteScreen(
-            note: notesBox.getNote(state.pathParameters['noteId']!)!,
+            noteId: state.pathParameters['noteId']!,
           )
         ),
         /*GoRoute(
@@ -36,7 +34,8 @@ GoRouter router = GoRouter(
       return "/welcome";
     } else if(state.matchedLocation == '/welcome' && (await Beshence.selectedAccount) != null) {
       return "/";
+    } else {
+      return null;
     }
-    return null;
   },
 );

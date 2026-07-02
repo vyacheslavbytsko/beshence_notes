@@ -1,5 +1,8 @@
+import 'package:beshence_sdk_flutter/beshence_sdk_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
+
+import 'models/note_v1.dart';
 
 Future<Box<Map>> openMapBox(String name) async => await Hive.openBox<Map>(name);
 
@@ -10,6 +13,20 @@ class NotesChangeNotifier extends ChangeNotifier {
 }
 
 NotesChangeNotifier notesChangeNotifier = NotesChangeNotifier();
+
+Future<Box<T>> getBox<T>(String name) async =>
+    Hive.isBoxOpen(name)
+        ? Hive.box<T>(name)
+        : await Hive.openBox<T>(name);
+
+late final Box<NoteV1> notesV1box;
+
+Future<Box<NoteV1>> getNotesV1Box(BeshenceAccount account) async => await getBox<NoteV1>('beshence_notes_${account.id}_notes_v1');
+
+DateTime latestDateTime(List<DateTime?> dateTimes) {
+  DateTime latestDateTime = dateTimes.nonNulls.reduce((a, b) => a.isAfter(b) ? a : b);
+  return latestDateTime;
+}
 
 /*bool isPortrait(BuildContext context) {
   return MediaQuery.orientationOf(context) == Orientation.portrait;

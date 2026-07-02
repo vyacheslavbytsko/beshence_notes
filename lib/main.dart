@@ -4,14 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:notes/route.dart';
 
-import 'boxes/notes_v1.dart';
-
-late NotesBoxV1 notesBox;
+import 'hive_registrar.g.dart';
 
 Future<void> main() async {
   await Beshence.init();
   await Hive.initFlutter();
-  notesBox = await NotesBoxV1.create();
+  Hive.registerAdapters();
 
   runApp(const MyApp());
 }
