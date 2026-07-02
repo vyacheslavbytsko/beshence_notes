@@ -12,8 +12,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    throw UnimplementedError();
+    /*return Scaffold(
       body: CenteredWidget(child: Center(child: Text("Beshence Notes", style: Theme.of(context).textTheme.headlineLarge,))),
-    );
+    );*/
   }
 }

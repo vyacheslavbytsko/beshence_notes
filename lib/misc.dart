@@ -11,7 +11,7 @@ class NotesChangeNotifier extends ChangeNotifier {
 
 NotesChangeNotifier notesChangeNotifier = NotesChangeNotifier();
 
-bool isPortrait(BuildContext context) {
+/*bool isPortrait(BuildContext context) {
   return MediaQuery.orientationOf(context) == Orientation.portrait;
 }
 
@@ -50,4 +50,4 @@ class CenteredWidget extends StatelessWidget {
       ),
     );
   }
-}
+}*/
