@@ -1,0 +1,42 @@
+import 'package:beshence_sdk_flutter/beshence_sdk_flutter.dart';
+import 'package:go_router/go_router.dart';
+import 'package:notes/screens/home.dart';
+import 'package:notes/screens/note.dart';
+import 'package:notes/screens/welcome.dart';
+
+import 'main.dart';
+
+GoRouter router = GoRouter(
+  routes: [
+    GoRoute(
+      path: "/welcome",
+      builder: (context, state) => const WelcomeScreen(),
+    ),
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const HomeScreen(),
+      routes: [
+        GoRoute(
+          path: 'note/:noteId',
+          builder: (context, state) => NoteScreen(
+            note: notesBox.getNote(state.pathParameters['noteId']!)!,
+          )
+        ),
+        /*GoRoute(
+          path: 'settings',
+          builder: (BuildContext context, GoRouterState state) {
+            return const SettingsScreen();
+          },
+        ),*/
+      ],
+    ),
+  ],
+  redirect: (context, state) async {
+    if (state.matchedLocation != '/welcome' && (await Beshence.selectedAccount) == null) {
+      return "/welcome";
+    } else if(state.matchedLocation == '/welcome' && (await Beshence.selectedAccount) != null) {
+      return "/";
+    }
+    return null;
+  },
+);
