@@ -117,30 +117,6 @@ class _NoteScreenState extends State<NoteScreen> {
                 itemBuilder: (BuildContext context) {
                   return [
                     PopupMenuItem(
-                      onTap: () => context.push("/pin"),
-                      child: Row(
-                        children: [
-                          Icon(Symbols.keep, fill: 1,),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text("Pin")
-                        ],
-                      ),
-                    ),
-                    PopupMenuItem(
-                      onTap: () => context.push("/archive"),
-                      child: Row(
-                        children: [
-                          Icon(Icons.archive,),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text("Archive")
-                        ],
-                      ),
-                    ),
-                    PopupMenuItem(
                       onTap: () {
                         /*DeleteNoteEvent event = DeleteNoteEvent(
                             noteId: widget.note.id,
