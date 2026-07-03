@@ -122,10 +122,8 @@ class _HomeScreenState extends State<HomeScreen> {
         textModifiedAt: null,
         deleted: false,
         deletionStateChangedAt: null);
-    BeshenceChain notesChain = await (await Beshence.selectedAccount)!.requireChain('notes');
+    BeshenceChain notesChain = await (Beshence.selectedAccount)!.requireChain('notes');
     CreateNoteV1Event event = CreateNoteV1Event(
-        id: Uuid().v4(),
-        chain: notesChain,
         noteId: note.id,
         createdAt: timestamp);
     await NoteV1.addNote(note);

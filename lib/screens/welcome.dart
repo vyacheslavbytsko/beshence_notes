@@ -53,15 +53,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       onPressed: () async {
                         var account = await Beshence.createAccount();
                         Beshence.setSelectedAccount(account);
-                        if(mounted) {
-                          context.replace("/");
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                        context.replace("/");
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
 
-                                content: Text("Created offline account successfully."),
-                                showCloseIcon: true,
-                              ));
-                        }
+                              content: Text("Created offline account successfully."),
+                              showCloseIcon: true,
+                            ));
                       },
                       child: const Text('Use offline'),
                     ),

@@ -1,7 +1,11 @@
+import 'package:beshence_sdk_flutter/beshence_sdk_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flutter/material.dart';
+import 'package:notes/events/delete_note_v1.dart';
+import 'package:notes/events/update_note_text_v1.dart';
+import 'package:notes/events/update_note_title_v1.dart';
 
 import '../models/note_v1.dart';
 import '../misc.dart';
@@ -25,34 +29,46 @@ class _NoteScreenState extends State<NoteScreen> {
   late NoteV1 note;
 
   Future<void> saveNote() async {
+    BeshenceChain notesChain = await (Beshence.selectedAccount)!.requireChain('notes');
+
     String title = titleController.text;
     String text = textController.text;
-    bool updateTitle = false;
-    bool updateText = false;
+
+    UpdateNoteTitleV1Event? titleEvent;
+    UpdateNoteTextV1Event? textEvent;
+
+    var timestamp = DateTime.timestamp();
 
     if(note.title != title) {
-      updateTitle = true;
+      titleEvent = UpdateNoteTitleV1Event(
+          noteId: note.id,
+          title: title,
+          updatedAt: timestamp);
+      await notesChain.addEvent(titleEvent);
     }
-    if(note.text != text) {
-      updateText = true;
-    }
-    if(updateTitle || updateText) {
-      var timestamp = DateTime.timestamp();
 
+    if(note.text != text) {
+      textEvent = UpdateNoteTextV1Event(
+          noteId: note.id,
+          text: text,
+          updatedAt: timestamp);
+      await notesChain.addEvent(textEvent);
+    }
+
+    if(titleEvent != null || textEvent != null) {
       note = NoteV1(
         id: note.id,
         accountId: note.accountId,
         createdAt: note.createdAt,
-        title: updateTitle ? title : note.title,
-        titleModifiedAt: updateTitle ? timestamp : note.titleModifiedAt,
-        text: updateText ? text : note.text,
-        textModifiedAt: updateText ? timestamp : note.textModifiedAt,
+        title: titleEvent != null ? title : note.title,
+        titleModifiedAt: titleEvent != null ? timestamp : note.titleModifiedAt,
+        text: textEvent != null ? text : note.text,
+        textModifiedAt: textEvent != null ? timestamp : note.textModifiedAt,
         deleted: note.deleted,
         deletionStateChangedAt: note.deletionStateChangedAt,
       );
 
       await NoteV1.updateNote(note);
-      //eventsBox.addEvent(event);
       notesChangeNotifier.updateNotes();
     }
   }
@@ -72,7 +88,7 @@ class _NoteScreenState extends State<NoteScreen> {
   }
 
   Future<void> _initializeNote() async {
-    final fetchedNote = await NoteV1.getNote(widget.noteId);
+    final fetchedNote = NoteV1.getNote(widget.noteId);
     if (fetchedNote != null) {
       setState(() {
         note = fetchedNote;
@@ -124,10 +140,11 @@ class _NoteScreenState extends State<NoteScreen> {
                   return [
                     PopupMenuItem(
                        onTap: () async {
-                        /*DeleteNoteEvent event = DeleteNoteEvent(
-                            noteId: note.id,
-                            noteDeletedAt: DateTime.timestamp(),
-                            applied: true);*/
+                         BeshenceChain notesChain = await (Beshence.selectedAccount)!.requireChain('notes');
+                         var timestamp = DateTime.timestamp();
+                         DeleteNoteV1Event event = DeleteNoteV1Event(
+                             noteId: note.id, deletedAt: timestamp);
+                         notesChain.addEvent(event);
                         var deletedNote = NoteV1(
                           id: note.id,
                           accountId: note.accountId,
@@ -137,10 +154,9 @@ class _NoteScreenState extends State<NoteScreen> {
                           text: note.text,
                           textModifiedAt: note.textModifiedAt,
                           deleted: true,
-                          deletionStateChangedAt: DateTime.timestamp(),
+                          deletionStateChangedAt: timestamp,
                         );
                         await NoteV1.updateNote(deletedNote);
-                        //eventsBox.addEvent(event);
                         notesChangeNotifier.updateNotes();
                         context.pop("delete");
                       },
