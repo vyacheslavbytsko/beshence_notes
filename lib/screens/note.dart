@@ -41,6 +41,7 @@ class _NoteScreenState extends State<NoteScreen> {
 
       note = NoteV1(
         id: note.id,
+        accountId: note.accountId,
         createdAt: note.createdAt,
         title: updateTitle ? title : note.title,
         titleModifiedAt: updateTitle ? timestamp : note.titleModifiedAt,
@@ -129,6 +130,7 @@ class _NoteScreenState extends State<NoteScreen> {
                             applied: true);*/
                         var deletedNote = NoteV1(
                           id: note.id,
+                          accountId: note.accountId,
                           createdAt: note.createdAt,
                           title: note.title,
                           titleModifiedAt: note.titleModifiedAt,

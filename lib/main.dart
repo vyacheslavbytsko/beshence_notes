@@ -2,14 +2,17 @@ import 'package:beshence_sdk_flutter/beshence_sdk_flutter.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce_flutter/adapters.dart';
+import 'package:notes/misc.dart';
 import 'package:notes/route.dart';
 
 import 'hive_registrar.g.dart';
+import 'models/note_v1.dart';
 
 Future<void> main() async {
   await Beshence.init();
   await Hive.initFlutter();
   Hive.registerAdapters();
+  notesV1Box = await getBox<NoteV1>('beshence_notes_notes_v1');
 
   runApp(const MyApp());
 }

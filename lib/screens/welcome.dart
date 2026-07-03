@@ -31,12 +31,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      var accounts = await Beshence.getAccounts();
-      var selectedAccount = await Beshence.selectedAccount;
-      if(selectedAccount == null && accounts.isNotEmpty) {
-        await Beshence.setSelectedAccount(accounts.first);
-        context.replace("/");
-      } else if(accounts.isEmpty && mounted) {
+      var selectedAccount = Beshence.selectedAccount;
+      if(selectedAccount == null && mounted) {
         showDialog(
           useSafeArea: true,
           requestFocus: true,
@@ -56,7 +52,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     FilledButton.tonal(
                       onPressed: () async {
                         var account = await Beshence.createAccount();
-                        await Beshence.setSelectedAccount(account);
+                        Beshence.setSelectedAccount(account);
                         if(mounted) {
                           context.replace("/");
                           ScaffoldMessenger.of(context).showSnackBar(

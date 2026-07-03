@@ -18,35 +18,38 @@ class NoteV1Adapter extends TypeAdapter<NoteV1> {
     };
     return NoteV1(
       id: fields[0] as String,
-      createdAt: fields[1] as DateTime,
-      title: fields[2] as String,
-      titleModifiedAt: fields[3] as DateTime?,
-      text: fields[4] as String,
-      textModifiedAt: fields[5] as DateTime?,
-      deleted: fields[6] as bool,
-      deletionStateChangedAt: fields[7] as DateTime?,
+      accountId: fields[1] as String,
+      createdAt: fields[2] as DateTime,
+      title: fields[3] as String,
+      titleModifiedAt: fields[4] as DateTime?,
+      text: fields[5] as String,
+      textModifiedAt: fields[6] as DateTime?,
+      deleted: fields[7] as bool,
+      deletionStateChangedAt: fields[8] as DateTime?,
     );
   }
 
   @override
   void write(BinaryWriter writer, NoteV1 obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.createdAt)
+      ..write(obj.accountId)
       ..writeByte(2)
-      ..write(obj.title)
+      ..write(obj.createdAt)
       ..writeByte(3)
-      ..write(obj.titleModifiedAt)
+      ..write(obj.title)
       ..writeByte(4)
-      ..write(obj.text)
+      ..write(obj.titleModifiedAt)
       ..writeByte(5)
-      ..write(obj.textModifiedAt)
+      ..write(obj.text)
       ..writeByte(6)
-      ..write(obj.deleted)
+      ..write(obj.textModifiedAt)
       ..writeByte(7)
+      ..write(obj.deleted)
+      ..writeByte(8)
       ..write(obj.deletionStateChangedAt);
   }
 
