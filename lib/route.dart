@@ -2,6 +2,7 @@ import 'package:beshence_sdk_flutter/beshence_sdk_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:notes/screens/home.dart';
 import 'package:notes/screens/note.dart';
+import 'package:notes/screens/settings.dart';
 import 'package:notes/screens/welcome.dart';
 
 GoRouter router = GoRouter(
@@ -20,12 +21,12 @@ GoRouter router = GoRouter(
             noteId: state.pathParameters['noteId']!,
           )
         ),
-        /*GoRoute(
+        GoRoute(
           path: 'settings',
-          builder: (BuildContext context, GoRouterState state) {
+          builder: (context, state) {
             return const SettingsScreen();
           },
-        ),*/
+        ),
       ],
     ),
   ],

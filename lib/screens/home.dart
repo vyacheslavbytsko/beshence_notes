@@ -33,6 +33,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 }
             ),
+            IconButton(
+                icon: Icon(Icons.settings),
+                onPressed: () {
+                  context.go("/settings");
+                }
+            ),
           ]
       ),
       body: SafeArea(

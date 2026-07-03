@@ -41,7 +41,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           builder: (context) =>
               BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                child: AlertDialog(
+                child: AlertDialog.adaptive(
                   title: Text('Welcome to Beshence Notes!',),
                   content: Text(
                     'You can log in to synchronize your data between your devices.', style: Theme.of(context).textTheme.bodyLarge,),
