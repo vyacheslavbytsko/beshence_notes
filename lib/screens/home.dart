@@ -19,7 +19,21 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Beshence Notes"),
+          title: Text("Beshence Notes"),
+          actions: [
+            IconButton(
+                icon: Icon(Icons.data_exploration_outlined),
+                onPressed: () {
+                  var daemon = BeshenceDaemon.of(Beshence.selectedAccount!);
+                  var state = daemon.daemonState();
+                  if (state == DaemonState.stopped) {
+                    daemon.startDaemon();
+                  } else if(state == DaemonState.running) {
+                    daemon.stopDaemon();
+                  }
+                }
+            ),
+          ]
       ),
       body: SafeArea(
           top: false,
