@@ -1,4 +1,3 @@
-import 'package:beshence_sdk_flutter/beshence_sdk_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 

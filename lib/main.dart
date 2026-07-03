@@ -9,9 +9,9 @@ import 'hive_registrar.g.dart';
 import 'models/note_v1.dart';
 
 Future<void> main() async {
-  await Beshence.init();
   await Hive.initFlutter();
   Hive.registerAdapters();
+  await Beshence.init();
   notesV1Box = await getBox<NoteV1>('beshence_notes_notes_v1');
 
   runApp(const MyApp());

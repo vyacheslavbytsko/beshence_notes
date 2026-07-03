@@ -29,13 +29,19 @@ GoRouter router = GoRouter(
       ],
     ),
   ],
-  redirect: (context, state) async {
-    if (state.matchedLocation != '/welcome' && (await Beshence.selectedAccount) == null) {
-      return "/welcome";
-    } else if(state.matchedLocation == '/welcome' && (await Beshence.selectedAccount) != null) {
-      return "/";
+  redirect: (context, state) {
+    final selectedAccount = Beshence.selectedAccount;
+    final location = state.uri.path;
+
+    if (selectedAccount == null) {
+      if (location != '/welcome') {
+        return "/welcome";
+      }
     } else {
-      return null;
+      if (location == '/welcome') {
+        return "/";
+      }
     }
+    return null;
   },
 );
