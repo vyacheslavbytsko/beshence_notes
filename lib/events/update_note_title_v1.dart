@@ -1,16 +1,20 @@
 import 'package:beshence_sdk_flutter/beshence_sdk_flutter.dart';
 
-class UpdateNoteTitleV1Event extends BeshenceEvent<UpdateNoteTitleV1Event> {
+class UpdateNoteTitleV1Event extends BeshenceEvent {
   final String noteId;
   final String title;
   final DateTime updatedAt;
 
   UpdateNoteTitleV1Event({
-    super.name="update_note_title_v1",
     required this.noteId,
     required this.title,
     required this.updatedAt
   });
+}
+
+class UpdateNoteTitleV1EventMapper implements BeshenceEventMapper<UpdateNoteTitleV1Event> {
+  @override
+  String get name => "update_note_title_v1";
 
   @override
   UpdateNoteTitleV1Event fromJson(Map<String, dynamic> json) {
@@ -21,12 +25,11 @@ class UpdateNoteTitleV1Event extends BeshenceEvent<UpdateNoteTitleV1Event> {
   }
 
   @override
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson(UpdateNoteTitleV1Event event) {
     return {
-      "note_id": noteId,
-      "title": title,
-      "updated_at": updatedAt.toIso8601String()
+      "note_id": event.noteId,
+      "title": event.title,
+      "updated_at": event.updatedAt.toIso8601String()
     };
   }
-
 }

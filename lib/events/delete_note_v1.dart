@@ -1,14 +1,18 @@
 import 'package:beshence_sdk_flutter/beshence_sdk_flutter.dart';
 
-class DeleteNoteV1Event extends BeshenceEvent<DeleteNoteV1Event> {
+class DeleteNoteV1Event extends BeshenceEvent {
   final String noteId;
   final DateTime deletedAt;
 
   DeleteNoteV1Event({
-    super.name="delete_note_v1",
     required this.noteId,
     required this.deletedAt
   });
+}
+
+class DeleteNoteV1EventMapper implements BeshenceEventMapper<DeleteNoteV1Event> {
+  @override
+  String get name => "delete_note_v1";
 
   @override
   DeleteNoteV1Event fromJson(Map<String, dynamic> json) {
@@ -18,11 +22,10 @@ class DeleteNoteV1Event extends BeshenceEvent<DeleteNoteV1Event> {
   }
 
   @override
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson(DeleteNoteV1Event event) {
     return {
-      "note_id": noteId,
-      "deleted_at": deletedAt.toIso8601String()
+      "note_id": event.noteId,
+      "deleted_at": event.deletedAt.toIso8601String()
     };
   }
-
 }

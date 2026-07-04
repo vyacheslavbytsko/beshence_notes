@@ -1,14 +1,18 @@
 import 'package:beshence_sdk_flutter/beshence_sdk_flutter.dart';
 
-class CreateNoteV1Event extends BeshenceEvent<CreateNoteV1Event> {
+class CreateNoteV1Event extends BeshenceEvent {
   final String noteId;
   final DateTime createdAt;
 
   CreateNoteV1Event({
-    super.name="create_note_v1",
     required this.noteId,
     required this.createdAt
   });
+}
+
+class CreateNoteV1EventMapper implements BeshenceEventMapper<CreateNoteV1Event> {
+  @override
+  String get name => "create_note_v1";
 
   @override
   CreateNoteV1Event fromJson(Map<String, dynamic> json) {
@@ -18,11 +22,10 @@ class CreateNoteV1Event extends BeshenceEvent<CreateNoteV1Event> {
   }
 
   @override
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson(CreateNoteV1Event event) {
     return {
-      "note_id": noteId,
-      "created_at": createdAt.toIso8601String()
+      "note_id": event.noteId,
+      "created_at": event.createdAt.toIso8601String()
     };
   }
-
 }
