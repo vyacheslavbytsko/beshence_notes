@@ -52,7 +52,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 TextButton(
                                   child: Text("Continue"),
                                   onPressed: () async {
-                                    var pingBankResponse = await Beshence.pingBank(address: _bankAddressController.text);
+                                    var pingBankResponse = await BeshenceBank.ping(address: _bankAddressController.text);
                                     if(pingBankResponse.authMethods.contains("usernameAndPassword")) {
                                       Navigator.pop(context);
                                       showDialog(
@@ -75,12 +75,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                     ),
                                                     TextButton(child: Text("Continue"),
                                                         onPressed: () async {
-                                                          var loginBankResponse = await Beshence.loginBank(
+                                                          var loginBankResponse = await BeshenceBank.login(
                                                               address: _bankAddressController.text,
                                                               username: _bankUsernameController.text,
                                                               password: _bankPasswordController.text);
 
-                                                          List<Map<String, String>> vaults = (await Beshence.getVaultsOfBank(
+                                                          List<Map<String, String>> vaults = (await BeshenceBank.getVaults(
                                                               address: _bankAddressController.text,
                                                               accessToken: loginBankResponse.accessToken
                                                           )).vaults;
