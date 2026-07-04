@@ -13,15 +13,15 @@ class CreateNoteV1Event extends BeshenceEvent<CreateNoteV1Event> {
   @override
   CreateNoteV1Event fromJson(Map<String, dynamic> json) {
     return CreateNoteV1Event(
-        noteId: json["noteId"],
-        createdAt: DateTime.parse(json["createdAt"]));
+        noteId: json["note_id"],
+        createdAt: DateTime.parse(json["created_at"]));
   }
 
   @override
   Map<String, dynamic> toJson() {
     return {
-      "noteId": noteId,
-      "createdAt": createdAt.toIso8601String()
+      "note_id": noteId,
+      "created_at": createdAt.toIso8601String()
     };
   }
 

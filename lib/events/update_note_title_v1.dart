@@ -15,17 +15,17 @@ class UpdateNoteTitleV1Event extends BeshenceEvent<UpdateNoteTitleV1Event> {
   @override
   UpdateNoteTitleV1Event fromJson(Map<String, dynamic> json) {
     return UpdateNoteTitleV1Event(
-        noteId: json["noteId"],
+        noteId: json["note_id"],
         title: json["title"],
-        updatedAt: DateTime.parse(json["updatedAt"]));
+        updatedAt: DateTime.parse(json["updated_at"]));
   }
 
   @override
   Map<String, dynamic> toJson() {
     return {
-      "noteId": noteId,
+      "note_id": noteId,
       "title": title,
-      "updatedAt": updatedAt.toIso8601String()
+      "updated_at": updatedAt.toIso8601String()
     };
   }
 

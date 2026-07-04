@@ -13,15 +13,15 @@ class DeleteNoteV1Event extends BeshenceEvent<DeleteNoteV1Event> {
   @override
   DeleteNoteV1Event fromJson(Map<String, dynamic> json) {
     return DeleteNoteV1Event(
-        noteId: json["noteId"],
-        deletedAt: DateTime.parse(json["deletedAt"]));
+        noteId: json["note_id"],
+        deletedAt: DateTime.parse(json["deleted_at"]));
   }
 
   @override
   Map<String, dynamic> toJson() {
     return {
-      "noteId": noteId,
-      "deletedAt": deletedAt.toIso8601String()
+      "note_id": noteId,
+      "deleted_at": deletedAt.toIso8601String()
     };
   }
 
