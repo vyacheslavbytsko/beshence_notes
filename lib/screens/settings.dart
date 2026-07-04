@@ -75,14 +75,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                     ),
                                                     TextButton(child: Text("Continue"),
                                                         onPressed: () async {
-                                                          var loginResponse = await Beshence.loginBank(
+                                                          var loginBankResponse = await Beshence.loginBank(
                                                               address: _bankAddressController.text,
                                                               username: _bankUsernameController.text,
                                                               password: _bankPasswordController.text);
 
                                                           List<Map<String, String>> vaults = (await Beshence.getVaultsOfBank(
                                                               address: _bankAddressController.text,
-                                                              accessToken: loginResponse.accessToken
+                                                              accessToken: loginBankResponse.accessToken
                                                           )).vaults;
 
                                                           Navigator.pop(context);
@@ -111,8 +111,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                                                       Beshence.selectedAccount!.addVault(
                                                                                         address: _bankAddressController.text,
                                                                                         vaultId: vaults[index]['id']!,
-                                                                                        refreshToken: loginResponse.refreshToken,
-                                                                                        accessToken: loginResponse.accessToken,
+                                                                                        bankId: pingBankResponse.bankId,
+                                                                                        refreshToken: loginBankResponse.refreshToken,
+                                                                                        accessToken: loginBankResponse.accessToken,
                                                                                       );
                                                                                       Navigator.pop(context);
                                                                                     },
