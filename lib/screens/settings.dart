@@ -100,6 +100,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                                         mainAxisSize: MainAxisSize.min,
                                                                         children: [
                                                                           Text("Choose vault"),
+                                                                          // TODO: add priority text field
                                                                           Expanded(
                                                                             child: ListView.builder(
                                                                                 shrinkWrap: true,
@@ -112,6 +113,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                                                         address: _bankAddressController.text,
                                                                                         vaultId: vaults[index]['id']!,
                                                                                         bankId: pingBankResponse.bankId,
+                                                                                        priority: 1024,
                                                                                         refreshToken: loginBankResponse.refreshToken,
                                                                                         accessToken: loginBankResponse.accessToken,
                                                                                       );
