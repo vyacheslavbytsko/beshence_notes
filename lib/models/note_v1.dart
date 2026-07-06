@@ -73,9 +73,4 @@ class NoteV1 extends HiveObject {
     final account = Beshence.selectedAccount;
     return notesV1Box.values.where((note) => note.accountId == account!.id && !note.deleted).length;
   }
-
-  static List<NoteV1> _getAllNotesIncludingDeleted() {
-    final account = Beshence.selectedAccount;
-    return notesV1Box.values.where((note) => note.accountId == account!.id).toList();
-  }
 }
