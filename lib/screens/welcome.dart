@@ -194,17 +194,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                           priority: int.tryParse(_vaultPriorityController.text) ?? 1024,
                                           refreshToken: _bankRefreshController.text,
                                           accessToken: _bankAccessController.text,
+                                          addVaultEvent: false
                                         );
 
-                                        BeshenceChain chain = await account.requireChain("main");
+                                        await account.requireChain("main");
+                                        await account.requireChain("notes");
 
-                                        BeshenceEvent event = InitAccountEvent(
-                                            accountId: _accountIDcontroller.text
-                                        );
-
-                                        event.id = _firstEventIDcontroller.text;
-
-                                        chain.addEvent(event);
+                                        Navigator.pop(context);
+                                        context.replace("/");
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(
+                                              content: Text("Logged in successfully."),
+                                              showCloseIcon: true,
+                                            ));
                                       },
                                       child: const Text('Ok'),
                                     ),
