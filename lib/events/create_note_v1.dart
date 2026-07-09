@@ -1,4 +1,9 @@
+import 'dart:async';
+
 import 'package:beshence_sdk_flutter/beshence_sdk_flutter.dart';
+import 'package:notes/misc.dart';
+
+import '../models/note_v1.dart';
 
 class CreateNoteV1Event extends BeshenceEvent {
   final String noteId;
@@ -13,6 +18,22 @@ class CreateNoteV1Event extends BeshenceEvent {
 class CreateNoteV1EventSpec implements BeshenceEventSpec<CreateNoteV1Event> {
   @override
   String get name => "create_note_v1";
+
+  @override
+  FutureOr<void> apply(CreateNoteV1Event event) async {
+    NoteV1 note = NoteV1(
+        id: event.noteId,
+        accountId: Beshence.selectedAccount!.id,
+        createdAt: event.createdAt,
+        title: "",
+        titleModifiedAt: null,
+        text: "",
+        textModifiedAt: null,
+        deleted: false,
+        deletionStateChangedAt: null);
+    await NoteV1.addNote(note);
+    notesChangeNotifier.updateNotes();
+  }
 
   @override
   CreateNoteV1Event fromJson(Map<String, dynamic> json) {

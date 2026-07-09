@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:beshence_sdk_flutter/beshence_sdk_flutter.dart';
 
 class DeleteNoteV1Event extends BeshenceEvent {
@@ -13,6 +15,12 @@ class DeleteNoteV1Event extends BeshenceEvent {
 class DeleteNoteV1EventSpec implements BeshenceEventSpec<DeleteNoteV1Event> {
   @override
   String get name => "delete_note_v1";
+
+  @override
+  FutureOr<void> apply(DeleteNoteV1Event event) {
+    // TODO: implement apply
+    throw UnimplementedError();
+  }
 
   @override
   DeleteNoteV1Event fromJson(Map<String, dynamic> json) {

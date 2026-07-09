@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:beshence_sdk_flutter/beshence_sdk_flutter.dart';
 
 class UpdateNoteTitleV1Event extends BeshenceEvent {
@@ -15,6 +17,12 @@ class UpdateNoteTitleV1Event extends BeshenceEvent {
 class UpdateNoteTitleV1EventSpec implements BeshenceEventSpec<UpdateNoteTitleV1Event> {
   @override
   String get name => "update_note_title_v1";
+
+  @override
+  FutureOr<void> apply(UpdateNoteTitleV1Event event) {
+    // TODO: implement apply
+    throw UnimplementedError();
+  }
 
   @override
   UpdateNoteTitleV1Event fromJson(Map<String, dynamic> json) {
