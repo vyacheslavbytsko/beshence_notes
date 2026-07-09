@@ -137,9 +137,9 @@ class _HomeScreenState extends State<HomeScreen> {
         accountId: Beshence.selectedAccount!.id,
         createdAt: timestamp,
         title: "",
-        titleModifiedAt: null,
+        titleUpdatedAt: null,
         text: "",
-        textModifiedAt: null,
+        textUpdatedAt: null,
         deleted: false,
         deletionStateChangedAt: null);
     BeshenceChain notesChain = await (Beshence.selectedAccount)!.requireChain('notes');

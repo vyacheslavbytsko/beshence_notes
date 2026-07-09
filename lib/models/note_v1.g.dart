@@ -21,9 +21,9 @@ class NoteV1Adapter extends TypeAdapter<NoteV1> {
       accountId: fields[1] as String,
       createdAt: fields[2] as DateTime,
       title: fields[3] as String,
-      titleModifiedAt: fields[4] as DateTime?,
+      titleUpdatedAt: fields[4] as DateTime?,
       text: fields[5] as String,
-      textModifiedAt: fields[6] as DateTime?,
+      textUpdatedAt: fields[6] as DateTime?,
       deleted: fields[7] as bool,
       deletionStateChangedAt: fields[8] as DateTime?,
     );
@@ -42,11 +42,11 @@ class NoteV1Adapter extends TypeAdapter<NoteV1> {
       ..writeByte(3)
       ..write(obj.title)
       ..writeByte(4)
-      ..write(obj.titleModifiedAt)
+      ..write(obj.titleUpdatedAt)
       ..writeByte(5)
       ..write(obj.text)
       ..writeByte(6)
-      ..write(obj.textModifiedAt)
+      ..write(obj.textUpdatedAt)
       ..writeByte(7)
       ..write(obj.deleted)
       ..writeByte(8)

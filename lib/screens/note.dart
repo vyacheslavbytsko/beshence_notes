@@ -61,9 +61,9 @@ class _NoteScreenState extends State<NoteScreen> {
         accountId: note.accountId,
         createdAt: note.createdAt,
         title: titleEvent != null ? title : note.title,
-        titleModifiedAt: titleEvent != null ? timestamp : note.titleModifiedAt,
+        titleUpdatedAt: titleEvent != null ? timestamp : note.titleUpdatedAt,
         text: textEvent != null ? text : note.text,
-        textModifiedAt: textEvent != null ? timestamp : note.textModifiedAt,
+        textUpdatedAt: textEvent != null ? timestamp : note.textUpdatedAt,
         deleted: note.deleted,
         deletionStateChangedAt: note.deletionStateChangedAt,
       );
@@ -150,9 +150,9 @@ class _NoteScreenState extends State<NoteScreen> {
                           accountId: note.accountId,
                           createdAt: note.createdAt,
                           title: note.title,
-                          titleModifiedAt: note.titleModifiedAt,
+                          titleUpdatedAt: note.titleUpdatedAt,
                           text: note.text,
-                          textModifiedAt: note.textModifiedAt,
+                          textUpdatedAt: note.textUpdatedAt,
                           deleted: true,
                           deletionStateChangedAt: timestamp,
                         );

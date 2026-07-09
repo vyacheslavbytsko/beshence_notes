@@ -17,11 +17,11 @@ class NoteV1 extends HiveObject {
   @HiveField(3)
   final String title;
   @HiveField(4)
-  final DateTime? titleModifiedAt;
+  final DateTime? titleUpdatedAt;
   @HiveField(5)
   final String text;
   @HiveField(6)
-  final DateTime? textModifiedAt;
+  final DateTime? textUpdatedAt;
   @HiveField(7)
   final bool deleted;
   @HiveField(8)
@@ -32,9 +32,9 @@ class NoteV1 extends HiveObject {
     required this.accountId,
     required this.createdAt,
     required this.title,
-    required this.titleModifiedAt,
+    required this.titleUpdatedAt,
     required this.text,
-    required this.textModifiedAt,
+    required this.textUpdatedAt,
     required this.deleted,
     required this.deletionStateChangedAt
   });
@@ -47,8 +47,8 @@ class NoteV1 extends HiveObject {
   static List<NoteV1> getAllNotesSorted() {
     final notes = getAllNotes();
     notes.sort((a, b) =>
-        latestDateTime([b.createdAt, b.titleModifiedAt, b.textModifiedAt])
-            .compareTo(latestDateTime([a.createdAt, a.titleModifiedAt, a.textModifiedAt])
+        latestDateTime([b.createdAt, b.titleUpdatedAt, b.textUpdatedAt])
+            .compareTo(latestDateTime([a.createdAt, a.titleUpdatedAt, a.textUpdatedAt])
         )
     );
     return notes;

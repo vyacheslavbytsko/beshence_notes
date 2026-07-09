@@ -21,16 +21,20 @@ class CreateNoteV1EventSpec implements BeshenceEventSpec<CreateNoteV1Event> {
 
   @override
   FutureOr<void> apply(CreateNoteV1Event event) async {
+    if(NoteV1.getAllNotes().any((note) => note.id == event.noteId)) {
+      return;
+    }
     NoteV1 note = NoteV1(
         id: event.noteId,
-        accountId: Beshence.selectedAccount!.id,
+        accountId: event.account!.id,
         createdAt: event.createdAt,
         title: "",
-        titleModifiedAt: null,
+        titleUpdatedAt: null,
         text: "",
-        textModifiedAt: null,
+        textUpdatedAt: null,
         deleted: false,
-        deletionStateChangedAt: null);
+        deletionStateChangedAt: null
+    );
     await NoteV1.addNote(note);
     notesChangeNotifier.updateNotes();
   }
