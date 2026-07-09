@@ -12,7 +12,7 @@ class UpdateNoteTitleV1Event extends BeshenceEvent {
   });
 }
 
-class UpdateNoteTitleV1EventMapper implements BeshenceEventMapper<UpdateNoteTitleV1Event> {
+class UpdateNoteTitleV1EventSpec implements BeshenceEventSpec<UpdateNoteTitleV1Event> {
   @override
   String get name => "update_note_title_v1";
 

@@ -10,7 +10,7 @@ class CreateNoteV1Event extends BeshenceEvent {
   });
 }
 
-class CreateNoteV1EventMapper implements BeshenceEventMapper<CreateNoteV1Event> {
+class CreateNoteV1EventSpec implements BeshenceEventSpec<CreateNoteV1Event> {
   @override
   String get name => "create_note_v1";
 

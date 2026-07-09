@@ -17,10 +17,10 @@ Future<void> main() async {
   Hive.registerAdapters();
 
   BeshenceEventRegistry registry = BeshenceEventRegistry();
-  registry.register<CreateNoteV1Event>(CreateNoteV1EventMapper());
-  registry.register<DeleteNoteV1Event>(DeleteNoteV1EventMapper());
-  registry.register<UpdateNoteTitleV1Event>(UpdateNoteTitleV1EventMapper());
-  registry.register<UpdateNoteTextV1Event>(UpdateNoteTextV1EventMapper());
+  registry.register<CreateNoteV1Event>(CreateNoteV1EventSpec());
+  registry.register<DeleteNoteV1Event>(DeleteNoteV1EventSpec());
+  registry.register<UpdateNoteTitleV1Event>(UpdateNoteTitleV1EventSpec());
+  registry.register<UpdateNoteTextV1Event>(UpdateNoteTextV1EventSpec());
   await Beshence.init(registry);
 
   notesV1Box = await getBox<NoteV1>('beshence_notes_notes_v1');

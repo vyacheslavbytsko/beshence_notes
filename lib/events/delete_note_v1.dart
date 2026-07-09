@@ -10,7 +10,7 @@ class DeleteNoteV1Event extends BeshenceEvent {
   });
 }
 
-class DeleteNoteV1EventMapper implements BeshenceEventMapper<DeleteNoteV1Event> {
+class DeleteNoteV1EventSpec implements BeshenceEventSpec<DeleteNoteV1Event> {
   @override
   String get name => "delete_note_v1";
 
