@@ -53,7 +53,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   child: Text("Continue"),
                                   onPressed: () async {
                                     var pingBankResponse = await BeshenceBank.ping(address: _bankAddressController.text);
-                                    if(pingBankResponse.authMethods.contains("usernameAndPassword")) {
+                                    if(pingBankResponse.loginMethods.contains("usernameAndPassword")) {
                                       Navigator.pop(context);
                                       showDialog(
                                         useSafeArea: true,

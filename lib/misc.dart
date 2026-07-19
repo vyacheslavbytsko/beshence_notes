@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 
@@ -25,12 +27,9 @@ DateTime latestDateTime(List<DateTime?> dateTimes) {
   return latestDateTime;
 }
 
-/*bool isPortrait(BuildContext context) {
-  return MediaQuery.orientationOf(context) == Orientation.portrait;
-}
-
 bool isLandscape(BuildContext context) {
-  return MediaQuery.orientationOf(context) == Orientation.landscape;
+  return MediaQuery.widthOf(context) > 640;
+  // return MediaQuery.orientationOf(context) == Orientation.landscape;
 }
 
 class CenteredWidget extends StatelessWidget {
@@ -42,9 +41,9 @@ class CenteredWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) => SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(24),
         child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: constraints.maxHeight - 32),
+          constraints: BoxConstraints(minHeight: constraints.maxHeight - 128),
           child: Row(
             crossAxisAlignment: isLandscape(context)
                 ? CrossAxisAlignment.center
@@ -53,8 +52,8 @@ class CenteredWidget extends StatelessWidget {
               Expanded(child: SizedBox.shrink()),
               SizedBox(
                 width: isLandscape(context)
-                    ? 384*2
-                    : (constraints.maxWidth - 32),
+                    ? min(640, constraints.maxWidth - 48)
+                    : (constraints.maxWidth - 48),
                 child: child,
               ),
               Expanded(child: SizedBox.shrink()),
@@ -64,4 +63,4 @@ class CenteredWidget extends StatelessWidget {
       ),
     );
   }
-}*/
+}
