@@ -40,9 +40,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             title: Text('Welcome to Beshence Notes!',),
             content: Text(
               'To get started, register new Beshence Account or log in to existing one.', style: Theme.of(context).textTheme.bodyLarge,),
-            actionsOverflowButtonSpacing: 12.0,
+            actionsOverflowButtonSpacing: 8.0,
             actionsAlignment: .spaceBetween,
             icon: Icon(Icons.sticky_note_2_outlined, size: 36,),
+            actionsOverflowDirection: .up,
             actions: [
               TextButton(
                 onPressed: () => showModalBottomSheet<void>(
