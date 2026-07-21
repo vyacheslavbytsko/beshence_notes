@@ -46,13 +46,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             actions: [
               FilledButton.tonal(
                 onPressed: () async {
-                  context.go("/register");
+                  context.push("/register");
                 },
                 child: const Text('Create new account'),
               ),
               FilledButton(
                 onPressed: () async {
-                  context.go("/login");
+                  context.push("/login");
                 },
                 child: const Text('Log in'),
               ),

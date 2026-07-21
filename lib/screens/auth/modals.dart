@@ -8,7 +8,7 @@ class WhatIsBeshenceModal extends StatelessWidget {
     return SingleChildScrollView(
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.all(32.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -23,11 +23,12 @@ class WhatIsBeshenceModal extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyLarge,
                           children: [
                             TextSpan(text: "Beshence", style: TextStyle(fontWeight: FontWeight.bold)),
-                            TextSpan(text: " is an open ecosystem built around the principle that users should own their data. The crucial parts are "),
+                            TextSpan(text: " is an open ecosystem built around the principle that users should own their data."),
+                            /*TextSpan(text: " The crucial parts are "),
                             TextSpan(text: "Beshence Bank", style: TextStyle(fontWeight: FontWeight.bold)),
                             TextSpan(text: " and "),
                             TextSpan(text: "Beshence Vault", style: TextStyle(fontWeight: FontWeight.bold)),
-                            TextSpan(text: "."),
+                            TextSpan(text: "."),*/
                           ]
                       )
                   ),
@@ -59,7 +60,7 @@ class WhatIsBeshenceModal extends StatelessWidget {
                             TextSpan(text: "Beshence Vault", style: TextStyle(fontWeight: FontWeight.bold)),
                             TextSpan(text: " is a storage for "),
                             TextSpan(text: "Beshence Account", style: TextStyle(fontWeight: FontWeight.bold)),
-                            TextSpan(text: " and its data (contacts, notes, tasks, anything you can imagine)."),
+                            TextSpan(text: " and its data (notes, tasks, contacts, media, anything you can imagine)."),
                           ]
                       )
                   ),

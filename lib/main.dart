@@ -1,6 +1,7 @@
 import 'package:beshence_sdk_flutter/beshence_sdk_flutter.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:notes/events/create_note_v1.dart';
 import 'package:notes/events/delete_note_v1.dart';
@@ -15,6 +16,8 @@ import 'models/note_v1.dart';
 Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapters();
+
+  GoRouter.optionURLReflectsImperativeAPIs = true;
 
   BeshenceEventRegistry registry = BeshenceEventRegistry();
   registry.register<CreateNoteV1Event>(CreateNoteV1EventSpec());

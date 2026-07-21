@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:beshence_sdk_flutter/beshence_sdk_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:notes/screens/auth/choose_bank.dart';
@@ -39,19 +41,19 @@ GoRouter router = GoRouter(
         routes: [
           GoRoute(path: "/choose_bank", builder: (context, state) => const ChooseBankScreen(newAccount: false)),
           GoRoute(path: "/choose_custom_bank", builder: (context, state) => const ChooseCustomBankScreen(newAccount: false)),
-          GoRoute(path: "/login_to_bank", builder: (context, state) => LoginToBankScreen(newAccount: false, bankAddress: state.uri.queryParameters['address']!))
+          GoRoute(path: "/login_to_bank", builder: (context, state) => LoginToBankScreen(newAccount: false, bankAddress: utf8.decode(base64Url.decode(state.uri.queryParameters['address']!))))
         ]
     ),
     GoRoute(
-      path: "/register",
-      redirect: (context, state) => state.uri.path == "/register" ? "/register/use_vault" : null,
-      routes: [
-        GoRoute(path: "/use_vault", builder: (context, state) => const UseVaultScreen()),
-        GoRoute(path: "/choose_bank", builder: (context, state) => const ChooseBankScreen(newAccount: true)),
-        GoRoute(path: "/choose_custom_bank", builder: (context, state) => const ChooseCustomBankScreen(newAccount: true)),
-        GoRoute(path: "/login_to_bank", builder: (context, state) => LoginToBankScreen(newAccount: true, bankAddress: state.uri.queryParameters['address']!))
-      ]
-    )
+        path: "/register",
+        redirect: (context, state) => state.uri.path == "/register" ? "/register/use_vault" : null,
+        routes: [
+          GoRoute(path: "/use_vault", builder: (context, state) => const UseVaultScreen()),
+          GoRoute(path: "/choose_bank", builder: (context, state) => const ChooseBankScreen(newAccount: true)),
+          GoRoute(path: "/choose_custom_bank", builder: (context, state) => const ChooseCustomBankScreen(newAccount: true)),
+          GoRoute(path: "/login_to_bank", builder: (context, state) => LoginToBankScreen(newAccount: true, bankAddress: utf8.decode(base64Url.decode(state.uri.queryParameters['address']!))))
+        ]
+    ),
   ],
   redirect: (context, state) {
     final selectedAccount = Beshence.selectedAccount;

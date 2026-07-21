@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
                 icon: Icon(Icons.settings),
                 onPressed: () {
-                  context.go("/settings");
+                  context.push("/settings");
                 }
             ),
           ]
@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             margin: EdgeInsets.zero,
                             child: InkWell(
                               borderRadius: BorderRadius.all(Radius.circular(12)),
-                              onTap: () => context.go("/note/${note.id}"),
+                              onTap: () => context.push("/note/${note.id}"),
                               child: Padding(
                                   padding: const EdgeInsets.all(16),
                                   child: Column(
@@ -149,6 +149,6 @@ class _HomeScreenState extends State<HomeScreen> {
     await NoteV1.addNote(note);
     await notesChain.addEvent(event);
     notesChangeNotifier.updateNotes();
-    context.go('/note/${note.id}');
+    context.push('/note/${note.id}');
   }
 }

@@ -1,6 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_ce/hive.dart';
 
 import 'models/note_v1.dart';
@@ -29,38 +28,78 @@ DateTime latestDateTime(List<DateTime?> dateTimes) {
 
 bool isLandscape(BuildContext context) {
   return MediaQuery.widthOf(context) > 640;
-  // return MediaQuery.orientationOf(context) == Orientation.landscape;
 }
 
-class CenteredWidget extends StatelessWidget {
-  final Widget child;
+class CenteredScaffold extends StatelessWidget {
+  final Widget body;
 
-  const CenteredWidget({super.key, required this.child});
+  const CenteredScaffold({super.key, required this.body});
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) => SingleChildScrollView(
-        padding: EdgeInsets.all(24),
-        child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: constraints.maxHeight - 128),
-          child: Row(
-            crossAxisAlignment: isLandscape(context)
-                ? CrossAxisAlignment.center
-                : CrossAxisAlignment.start,
+    var surfaceContainer = Theme.of(context).colorScheme.surfaceContainer;
+    var surface = Theme.of(context).colorScheme.surface;
+    return Scaffold(
+        backgroundColor: isLandscape(context) ? surfaceContainer : surface,
+        body: SafeArea(
+          child: Stack(
             children: [
-              Expanded(child: SizedBox.shrink()),
-              SizedBox(
-                width: isLandscape(context)
-                    ? min(640, constraints.maxWidth - 48)
-                    : (constraints.maxWidth - 48),
-                child: child,
+              Align(
+                alignment: isLandscape(context) ? AlignmentGeometry.center : AlignmentGeometry.topCenter,
+                child: LayoutBuilder(builder: (context, constraints) {
+                  return Padding(
+                    padding: isLandscape(context) ? const EdgeInsets.symmetric(horizontal: 32.0) : const EdgeInsets.all(0.0),
+                    child: SingleChildScrollView(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth: 640
+                        ),
+                        child: Column(
+                          mainAxisSize: .min,
+                          children: [
+                            SizedBox(height: 56,),
+                            Card.filled(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: .circular(32),
+                              ),
+                              margin: .all(0.0),
+                              color: Theme.of(context).colorScheme.surface,
+                              child: Padding(
+                                padding: .all(32.0),
+                                child: body,
+                              ),
+                            ),
+                            SizedBox(height: 56,)
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },)
               ),
-              Expanded(child: SizedBox.shrink()),
+              SizedBox(
+                height: 56,
+                child: AppBar(
+                    scrolledUnderElevation: 0.0,
+                    leading: !context.canPop() ? null : Padding(
+                        padding: EdgeInsetsGeometry.all(8.0),
+                      child: IconButton(
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(
+                              isLandscape(context)
+                              ? Theme.of(context).colorScheme.surfaceContainer
+                              : Theme.of(context).colorScheme.surface
+                          )
+                        ),
+                          onPressed: () => context.pop(),
+                          icon: Icon(Icons.arrow_back)),
+                    ),
+                  backgroundColor: Colors.transparent
+                ),
+              )
             ],
           ),
-        ),
-      ),
+        )
     );
   }
 }
