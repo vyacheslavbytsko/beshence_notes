@@ -46,12 +46,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             actionsOverflowDirection: .up,
             actions: [
               TextButton(
-                onPressed: () => showModalBottomSheet<void>(
+                onPressed: () {} /*=> showModalBottomSheet<void>(
                     isScrollControlled: true,
                     context: context,
                     builder: (context) => OfflineModal()
-                ),
-                child: const Text('Continue offline'),
+                )*/,
+                child: const Text('Other options'),
               ),
               FilledButton(
                 onPressed: () async {
@@ -70,7 +70,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 }
 
-class OfflineModal extends StatelessWidget {
+/*class OfflineModal extends StatelessWidget {
   const OfflineModal({super.key});
 
   @override
@@ -150,4 +150,4 @@ class OfflineModal extends StatelessWidget {
         )
     );
   }
-}
+}*/
