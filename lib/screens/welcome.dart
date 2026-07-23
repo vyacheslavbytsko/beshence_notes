@@ -14,7 +14,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double dialogWidth = screenWidth > 600 ? 550.0 : screenWidth * 0.85;
+    double dialogWidth = screenWidth > 600 ? 560.0 : screenWidth * 0.85;
     return Stack(
       children: [
         Scaffold(

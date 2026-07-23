@@ -24,7 +24,7 @@ Future<void> main() async {
   registry.register<DeleteNoteV1Event>(DeleteNoteV1EventSpec());
   registry.register<UpdateNoteTitleV1Event>(UpdateNoteTitleV1EventSpec());
   registry.register<UpdateNoteTextV1Event>(UpdateNoteTextV1EventSpec());
-  await Beshence.init(registry);
+  await Beshence.init(registry: registry);
 
   notesV1Box = await getBox<NoteV1>('beshence_notes_notes_v1');
 
